@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cuevas Lock Box — Week 1</title>
+<style>
+  :root {
+    --ink: #07110c;
+    --panel: #102018;
+    --line: #1f3a2c;
+    --turf: #7dff9a;
+    --amber: #ffc857;
+    --red: #ff5a5a;
+    --fog: #c7d7cc;
+    --mute: #7f937f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
+    background:
+      linear-gradient(180deg, rgba(7,17,12,.92), rgba(7,17,12,.96)),
+      repeating-linear-gradient(90deg, transparent 0 46px, rgba(125,255,154,.04) 46px 48px),
+      #07110c;
+    color: var(--fog);
+    min-height: 100vh;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 28px 32px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--turf); }
+  h1 { margin: 6px 0 0; font-size: 28px; color: #f4fff6; letter-spacing: .04em; }
+  .meta { text-align: right; font-size: 12px; color: var(--mute); }
+  .status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 10px;
+    border: 1px solid var(--turf);
+    color: var(--turf);
+    letter-spacing: .18em;
+    font-size: 11px;
+  }
+  main { display: grid; grid-template-columns: 1.7fr .9fr; gap: 20px; padding: 22px 32px 40px; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } header { flex-direction: column; align-items: flex-start; } }
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .ticket {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 12px 13px 11px;
+    min-height: 124px;
+    position: relative;
+  }
+  .ticket:before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--turf);
+  }
+  .ticket.med:before { background: var(--amber); }
+  .ticket.low:before { background: var(--red); }
+  .when { font-size: 10px; letter-spacing: .16em; color: var(--mute); text-transform: uppercase; }
+  .match { margin: 8px 0 6px; font-size: 13px; color: #9eaf9e; }
+  .pick { font-size: 20px; color: #f7fff8; }
+  .conf { margin-top: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+  .ticket.high .conf { color: var(--turf); }
+  .ticket.low .conf { color: var(--red); }
+  aside section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 14px 16px 16px;
+    margin-bottom: 12px;
+  }
+  h2 { margin: 0 0 10px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--turf); }
+  ul { margin: 0; padding-left: 16px; }
+  li { margin: 0 0 8px; font-size: 12px; line-height: 1.45; }
+  .tb { font-size: 42px; color: var(--amber); line-height: 1; }
+  .tb span { display: block; font-size: 11px; letter-spacing: .16em; color: var(--mute); margin-top: 6px; }
+  footer { padding: 0 32px 28px; color: var(--mute); font-size: 11px; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Cuevas Lock Box</div>
+    <h1>Week 1 Command Center</h1>
+  </div>
+  <div class="meta">
+    2026 NFL pick'em<br />
+    <span class="status">STATUS CLEAR</span>
+  </div>
+</header>
+<main>
+  <section class="board">
+    <article class="ticket high"><div class="when">Wed 5:20p PT · Lumen</div><div class="match">Patriots at Seahawks</div><div class="pick">Seahawks</div><div class="conf">High</div></article>
+    <article class="ticket med"><div class="when">Thu 5:35p PT · Melbourne</div><div class="match">49ers vs Rams</div><div class="pick">Rams</div><div class="conf">Medium</div></article>
+    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Bears at Panthers</div><div class="pick">Bears</div><div class="conf">Medium</div></article>
+    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Browns at Jaguars</div><div class="pick">Jaguars</div><div class="conf">High</div></article>
+    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Saints at Lions</div><div class="pick">Lions</div><div class="conf">High</div></article>
+    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Falcons at Steelers</div><div class="pick">Steelers</div><div class="conf">Medium-high</div></article>
+    <article class="ticket low"><div class="when">Sun 10:00a PT</div><div class="match">Jets at Titans</div><div class="pick">Titans</div><div class="conf">Low</div></article>
+    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Buccaneers at Bengals</div><div class="pick">Bengals</div><div class="conf">Medium</div></article>
+    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Ravens at Colts</div><div class="pick">Ravens</div><div class="conf">Medium</div></article>
+    <article class="ticket low"><div class="when">Sun 10:00a PT</div><div class="match">Bills at Texans</div><div class="pick">Bills</div><div class="conf">Toss-up</div></article>
+    <article class="ticket med"><div class="when">Sun 1:25p PT</div><div class="match">Packers at Vikings</div><div class="pick">Vikings</div><div class="conf">Medium</div></article>
+    <article class="ticket high"><div class="when">Sun 1:25p PT</div><div class="match">Cardinals at Chargers</div><div class="pick">Chargers</div><div class="conf">High</div></article>
+    <article class="ticket med"><div class="when">Sun 1:25p PT</div><div class="match">Dolphins at Raiders</div><div class="pick">Raiders</div><div class="conf">Medium · Jeanty watch</div></article>
+    <article class="ticket high"><div class="when">Sun 1:25p PT</div><div class="match">Commanders at Eagles</div><div class="pick">Eagles</div><div class="conf">High</div></article>
+    <article class="ticket med"><div class="when">Sun 5:20p PT · SNF</div><div class="match">Cowboys at Giants</div><div class="pick">Cowboys</div><div class="conf">Medium</div></article>
+    <article class="ticket med"><div class="when">Mon 5:15p PT · MNF</div><div class="match">Broncos at Chiefs</div><div class="pick">Chiefs</div><div class="conf">Medium · Mahomes watch</div></article>
+  </section>
+  <aside>
+    <section>
+      <h2>Tiebreaker</h2>
+      <div class="tb">41<span>DEN + KC combined · under the 43.5</span></div>
+    </section>
+    <section>
+      <h2>Flip rules</h2>
+      <ul>
+        <li>Jeanty out/doubtful → Dolphins</li>
+        <li>Mahomes out → Broncos</li>
+        <li>Chase and Higgins both out → Buccaneers</li>
+        <li>Hall out → keep Titans</li>
+        <li>Penix or Jacobs surprise-active → flag only</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Desks</h2>
+      <ul>
+        <li>8:00a PT — overnight sweep</li>
+        <li>1:15p PT — official IR dump</li>
+        <li>Sun 7:30a PT — inactives</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Filters</h2>
+      <ul>
+        <li>Roster health first</li>
+        <li>Positional matchups</li>
+        <li>Age + body-clock only as a tax</li>
+        <li>Ignore the app percentages</li>
+      </ul>
+    </section>
+  </aside>
+</main>
+<footer>Private desk for weekly locks. Update this board when a flip fires or a new week is picked.</footer>
+</body>
+</html>
