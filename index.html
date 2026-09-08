@@ -3,150 +3,191 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cuevas Lock Box — Week 1</title>
+<title>PICK'EM HQ — Week 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --ink: #07110c;
-    --panel: #102018;
-    --line: #1f3a2c;
-    --turf: #7dff9a;
-    --amber: #ffc857;
-    --red: #ff5a5a;
-    --fog: #c7d7cc;
-    --mute: #7f937f;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, monospace;
-    background:
-      linear-gradient(180deg, rgba(7,17,12,.92), rgba(7,17,12,.96)),
-      repeating-linear-gradient(90deg, transparent 0 46px, rgba(125,255,154,.04) 46px 48px),
-      #07110c;
-    color: var(--fog);
-    min-height: 100vh;
-  }
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 24px;
-    padding: 28px 32px 18px;
-    border-bottom: 1px solid var(--line);
-  }
-  .brand { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--turf); }
-  h1 { margin: 6px 0 0; font-size: 28px; color: #f4fff6; letter-spacing: .04em; }
-  .meta { text-align: right; font-size: 12px; color: var(--mute); }
-  .status {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 4px 10px;
-    border: 1px solid var(--turf);
-    color: var(--turf);
-    letter-spacing: .18em;
-    font-size: 11px;
-  }
-  main { display: grid; grid-template-columns: 1.7fr .9fr; gap: 20px; padding: 22px 32px 40px; }
-  @media (max-width: 980px) { main { grid-template-columns: 1fr; } header { flex-direction: column; align-items: flex-start; } }
-  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
-  .ticket {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    padding: 12px 13px 11px;
-    min-height: 124px;
-    position: relative;
-  }
-  .ticket:before {
-    content: "";
-    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-    background: var(--turf);
-  }
-  .ticket.med:before { background: var(--amber); }
-  .ticket.low:before { background: var(--red); }
-  .when { font-size: 10px; letter-spacing: .16em; color: var(--mute); text-transform: uppercase; }
-  .match { margin: 8px 0 6px; font-size: 13px; color: #9eaf9e; }
-  .pick { font-size: 20px; color: #f7fff8; }
-  .conf { margin-top: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
-  .ticket.high .conf { color: var(--turf); }
-  .ticket.low .conf { color: var(--red); }
-  aside section {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    padding: 14px 16px 16px;
-    margin-bottom: 12px;
-  }
-  h2 { margin: 0 0 10px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--turf); }
-  ul { margin: 0; padding-left: 16px; }
-  li { margin: 0 0 8px; font-size: 12px; line-height: 1.45; }
-  .tb { font-size: 42px; color: var(--amber); line-height: 1; }
-  .tb span { display: block; font-size: 11px; letter-spacing: .16em; color: var(--mute); margin-top: 6px; }
-  footer { padding: 0 32px 28px; color: var(--mute); font-size: 11px; letter-spacing: .08em; }
+:root {
+  --bg: #07110c;
+  --bg2: #0c1a13;
+  --panel: #102117;
+  --line: #1e3a2a;
+  --text: #e7f5ea;
+  --muted: #8aa392;
+  --green: #3dff8a;
+  --amber: #ffcc4d;
+  --red: #ff5a6a;
+  --blue: #6ecbff;
+  --chip: #163324;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #143322 0%, transparent 55%),
+    radial-gradient(900px 400px at 100% 0%, #1a2a12 0%, transparent 50%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.08) 3px);
+  opacity: .35;
+}
+.wrap { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 28px 20px 60px; }
+header { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+.brand { font-family: 'Barlow Condensed', sans-serif; }
+.brand .kicker { color: var(--green); letter-spacing: .28em; font-size: 12px; font-weight: 700; }
+.brand h1 { font-size: clamp(42px, 7vw, 72px); line-height: .9; letter-spacing: .02em; }
+.brand h1 span { color: var(--green); }
+.meta { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); }
+.meta .clock { color: var(--text); font-size: 18px; margin-top: 4px; }
+.banner {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  background: linear-gradient(90deg, #12351f, #0d2418);
+  border: 1px solid var(--line); border-left: 4px solid var(--green);
+  padding: 12px 16px; margin-bottom: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 13px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 1.6s infinite; }
+@keyframes pulse { 50% { opacity: .4 } }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; }
+.stat { background: var(--panel); border: 1px solid var(--line); padding: 14px 16px; }
+.stat b { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 28px; line-height: 1; }
+.stat span { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.grid { display: grid; grid-template-columns: 1.7fr .9fr; gap: 16px; }
+.section-title { font-family: 'Barlow Condensed', sans-serif; letter-spacing: .14em; font-size: 18px; color: var(--muted); margin: 0 0 10px; }
+.games { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); padding: 12px 13px;
+  display: grid; gap: 8px;
+}
+.card.high { border-color: #2f6a43; }
+.card.low { border-color: #5a4a20; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12px; color: var(--muted); }
+.pick { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; letter-spacing: .03em; line-height: 1; }
+.vs { color: var(--muted); font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 3px 7px; background: var(--chip); border: 1px solid var(--line); color: var(--muted); }
+.pill.ok { color: var(--green); border-color: #2c6a44; }
+.pill.warn { color: var(--amber); border-color: #6a5a20; }
+.pill.hot { color: var(--red); border-color: #6a2a32; }
+.side { display: grid; gap: 12px; }
+.panel { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
+.trip { display: grid; gap: 8px; font-size: 13px; }
+.trip li { list-style: none; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.trip li:last-child { border-bottom: 0; }
+.trip code { color: var(--amber); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.watch { display: grid; gap: 6px; }
+.wrow { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.wrow:last-child { border-bottom: 0; }
+footer { margin-top: 22px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+@media (max-width: 920px) {
+  .grid, .games, .stats { grid-template-columns: 1fr; }
+  .meta { text-align: left; }
+}
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <div class="brand">Cuevas Lock Box</div>
-    <h1>Week 1 Command Center</h1>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="kicker">MCUEVAS27 // 2026 SEASON</div>
+      <h1>PICK'EM <span>HQ</span></h1>
+    </div>
+    <div class="meta">
+      WEEK 1 LOCKED
+      <div class="clock" id="clock">--</div>
+      <div id="until">next kick loading…</div>
+    </div>
+  </header>
+
+  <div class="banner"><span class="dot"></span> DESKS LIVE — 8:00am PT sweep · 1:15pm PT injury report · Sunday 7:30am PT inactives</div>
+
+  <div class="stats">
+    <div class="stat"><b>16</b><span>games on the card</span></div>
+    <div class="stat"><b>41</b><span>MNF tiebreaker</span></div>
+    <div class="stat"><b>2</b><span>hard flip tripwires</span></div>
+    <div class="stat"><b id="record">0-0</b><span>week record</span></div>
   </div>
-  <div class="meta">
-    2026 NFL pick'em<br />
-    <span class="status">STATUS CLEAR</span>
+
+  <div class="grid">
+    <div>
+      <div class="section-title">THE CARD</div>
+      <div class="games" id="games"></div>
+    </div>
+    <div class="side">
+      <div class="panel">
+        <div class="section-title">TRIPWIRES</div>
+        <ul class="trip">
+          <li><code>FLIP</code> Jeanty OUT/Doubtful → Dolphins over Raiders</li>
+          <li><code>FLIP</code> Mahomes OUT → Broncos over Chiefs</li>
+          <li><code>FLIP</code> Chase + Higgins both OUT → Bucs over Bengals</li>
+          <li><code>HOLD+</code> Hall OUT → keep Titans</li>
+          <li><code>WATCH</code> Penix or Jacobs unexpectedly active</li>
+          <li><code>WATCH</code> 20+ mph wind / slop at an outdoor site</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="section-title">WATCH LIST</div>
+        <div class="watch">
+          <div class="wrow"><span>Ashton Jeanty</span><span class="pill warn">Q · ankle</span></div>
+          <div class="wrow"><span>Patrick Mahomes</span><span class="pill warn">rusty · expected</span></div>
+          <div class="wrow"><span>Breece Hall</span><span class="pill warn">groin</span></div>
+          <div class="wrow"><span>Chase / Higgins</span><span class="pill warn">knee / heel</span></div>
+          <div class="wrow"><span>Josh Jacobs</span><span class="pill hot">CEL / OUT</span></div>
+          <div class="wrow"><span>Michael Penix</span><span class="pill hot">OUT</span></div>
+          <div class="wrow"><span>Tyler Smith</span><span class="pill hot">OUT 4-6</span></div>
+          <div class="wrow"><span>Chuba Hubbard</span><span class="pill warn">hamstring</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
-<main>
-  <section class="board">
-    <article class="ticket high"><div class="when">Wed 5:20p PT · Lumen</div><div class="match">Patriots at Seahawks</div><div class="pick">Seahawks</div><div class="conf">High</div></article>
-    <article class="ticket med"><div class="when">Thu 5:35p PT · Melbourne</div><div class="match">49ers vs Rams</div><div class="pick">Rams</div><div class="conf">Medium</div></article>
-    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Bears at Panthers</div><div class="pick">Bears</div><div class="conf">Medium</div></article>
-    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Browns at Jaguars</div><div class="pick">Jaguars</div><div class="conf">High</div></article>
-    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Saints at Lions</div><div class="pick">Lions</div><div class="conf">High</div></article>
-    <article class="ticket high"><div class="when">Sun 10:00a PT</div><div class="match">Falcons at Steelers</div><div class="pick">Steelers</div><div class="conf">Medium-high</div></article>
-    <article class="ticket low"><div class="when">Sun 10:00a PT</div><div class="match">Jets at Titans</div><div class="pick">Titans</div><div class="conf">Low</div></article>
-    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Buccaneers at Bengals</div><div class="pick">Bengals</div><div class="conf">Medium</div></article>
-    <article class="ticket med"><div class="when">Sun 10:00a PT</div><div class="match">Ravens at Colts</div><div class="pick">Ravens</div><div class="conf">Medium</div></article>
-    <article class="ticket low"><div class="when">Sun 10:00a PT</div><div class="match">Bills at Texans</div><div class="pick">Bills</div><div class="conf">Toss-up</div></article>
-    <article class="ticket med"><div class="when">Sun 1:25p PT</div><div class="match">Packers at Vikings</div><div class="pick">Vikings</div><div class="conf">Medium</div></article>
-    <article class="ticket high"><div class="when">Sun 1:25p PT</div><div class="match">Cardinals at Chargers</div><div class="pick">Chargers</div><div class="conf">High</div></article>
-    <article class="ticket med"><div class="when">Sun 1:25p PT</div><div class="match">Dolphins at Raiders</div><div class="pick">Raiders</div><div class="conf">Medium · Jeanty watch</div></article>
-    <article class="ticket high"><div class="when">Sun 1:25p PT</div><div class="match">Commanders at Eagles</div><div class="pick">Eagles</div><div class="conf">High</div></article>
-    <article class="ticket med"><div class="when">Sun 5:20p PT · SNF</div><div class="match">Cowboys at Giants</div><div class="pick">Cowboys</div><div class="conf">Medium</div></article>
-    <article class="ticket med"><div class="when">Mon 5:15p PT · MNF</div><div class="match">Broncos at Chiefs</div><div class="pick">Chiefs</div><div class="conf">Medium · Mahomes watch</div></article>
-  </section>
-  <aside>
-    <section>
-      <h2>Tiebreaker</h2>
-      <div class="tb">41<span>DEN + KC combined · under the 43.5</span></div>
-    </section>
-    <section>
-      <h2>Flip rules</h2>
-      <ul>
-        <li>Jeanty out/doubtful → Dolphins</li>
-        <li>Mahomes out → Broncos</li>
-        <li>Chase and Higgins both out → Buccaneers</li>
-        <li>Hall out → keep Titans</li>
-        <li>Penix or Jacobs surprise-active → flag only</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Desks</h2>
-      <ul>
-        <li>8:00a PT — overnight sweep</li>
-        <li>1:15p PT — official IR dump</li>
-        <li>Sun 7:30a PT — inactives</li>
-      </ul>
-    </section>
-    <section>
-      <h2>Filters</h2>
-      <ul>
-        <li>Roster health first</li>
-        <li>Positional matchups</li>
-        <li>Age + body-clock only as a tax</li>
-        <li>Ignore the app percentages</li>
-      </ul>
-    </section>
-  </aside>
-</main>
-<footer>Private desk for weekly locks. Update this board when a flip fires or a new week is picked.</footer>
+
+  <footer>War room source: github.com/mcuevas27/nfl-war-room — tell Grok when next week locks and the desks + this board get patched together.</footer>
+</div>
+<script>
+const games = [
+  { when: 'Wed 5:20pm PT', kick: '2026-09-09T17:20:00-07:00', match: 'NE @ SEA', pick: 'SEAHAWKS', conf: 'high', note: 'home + travel' },
+  { when: 'Thu 5:35pm PT', kick: '2026-09-10T17:35:00-07:00', match: 'SF vs LAR · Melbourne', pick: 'RAMS', conf: 'med', note: 'age-clock tax' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'CHI @ CAR', pick: 'BEARS', conf: 'med', note: 'Hubbard Q' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'CLE @ JAX', pick: 'JAGUARS', conf: 'high', note: 'cleanest click' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'NO @ DET', pick: 'LIONS', conf: 'high', note: 'Kamara out' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'ATL @ PIT', pick: 'STEELERS', conf: 'med', note: 'Penix out / Tua' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'NYJ @ TEN', pick: 'TITANS', conf: 'low', note: 'Hall groin' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'TB @ CIN', pick: 'BENGALS', conf: 'med', note: 'Chase/Higgins' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'BAL @ IND', pick: 'RAVENS', conf: 'med', note: 'Lamar' },
+  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'BUF @ HOU', pick: 'BILLS', conf: 'low', note: 'toss-up' },
+  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'GB @ MIN', pick: 'VIKINGS', conf: 'med', note: 'Jacobs out' },
+  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'ARI @ LAC', pick: 'CHARGERS', conf: 'high', note: 'Herbert home' },
+  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'MIA @ LV', pick: 'RAIDERS', conf: 'med', note: 'Jeanty Q' },
+  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'WAS @ PHI', pick: 'EAGLES', conf: 'high', note: 'home roster' },
+  { when: 'Sun 5:20pm PT', kick: '2026-09-13T17:20:00-07:00', match: 'DAL @ NYG', pick: 'COWBOYS', conf: 'med', note: 'Smith out' },
+  { when: 'Mon 5:15pm PT', kick: '2026-09-14T17:15:00-07:00', match: 'DEN @ KC', pick: 'CHIEFS', conf: 'med', note: 'TB 41' }
+];
+const root = document.getElementById('games');
+games.forEach(g => {
+  const el = document.createElement('article');
+  el.className = 'card ' + (g.conf === 'high' ? 'high' : g.conf === 'low' ? 'low' : '');
+  el.innerHTML = `<div class="row"><span>${g.when}</span><span class="pill ${g.conf==='high'?'ok':g.conf==='low'?'warn':''}">${g.conf}</span></div>
+    <div class="vs">${g.match}</div>
+    <div class="pick">${g.pick}</div>
+    <div class="pills"><span class="pill">${g.note}</span></div>`;
+  root.appendChild(el);
+});
+function tick() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit' }) + ' PT';
+  const next = games.map(g => new Date(g.kick)).filter(d => d > now).sort((a,b)=>a-b)[0];
+  const box = document.getElementById('until');
+  if (!next) { box.textContent = 'week 1 complete — lock next card'; return; }
+  const ms = next - now;
+  const h = Math.floor(ms/3600000), m = Math.floor(ms%3600000/60000);
+  box.textContent = 'next kick in ' + h + 'h ' + m + 'm';
+}
+tick(); setInterval(tick, 30000);
+</script>
 </body>
 </html>
