@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PICK'EM HQ — Week 1</title>
+<title>PICK'EM HQ — Awaiting Week 2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -48,10 +48,10 @@ header { display: flex; justify-content: space-between; align-items: flex-end; g
 .banner {
   display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
   background: linear-gradient(90deg, #12351f, #0d2418);
-  border: 1px solid var(--line); border-left: 4px solid var(--green);
+  border: 1px solid var(--line); border-left: 4px solid var(--amber);
   padding: 12px 16px; margin-bottom: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 13px;
 }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 1.6s infinite; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 10px var(--amber); animation: pulse 1.6s infinite; }
 @keyframes pulse { 50% { opacity: .4 } }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; }
 .stat { background: var(--panel); border: 1px solid var(--line); padding: 14px 16px; }
@@ -64,8 +64,6 @@ header { display: flex; justify-content: space-between; align-items: flex-end; g
   background: var(--panel); border: 1px solid var(--line); padding: 12px 13px;
   display: grid; gap: 8px;
 }
-.card.high { border-color: #2f6a43; }
-.card.low { border-color: #5a4a20; }
 .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12px; color: var(--muted); }
 .pick { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; letter-spacing: .03em; line-height: 1; }
 .vs { color: var(--muted); font-size: 13px; font-family: 'IBM Plex Mono', monospace; }
@@ -73,7 +71,6 @@ header { display: flex; justify-content: space-between; align-items: flex-end; g
 .pill { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 3px 7px; background: var(--chip); border: 1px solid var(--line); color: var(--muted); }
 .pill.ok { color: var(--green); border-color: #2c6a44; }
 .pill.warn { color: var(--amber); border-color: #6a5a20; }
-.pill.hot { color: var(--red); border-color: #6a2a32; }
 .side { display: grid; gap: 12px; }
 .panel { background: var(--panel); border: 1px solid var(--line); padding: 14px; }
 .trip { display: grid; gap: 8px; font-size: 13px; }
@@ -83,6 +80,18 @@ header { display: flex; justify-content: space-between; align-items: flex-end; g
 .watch { display: grid; gap: 6px; }
 .wrow { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--line); }
 .wrow:last-child { border-bottom: 0; }
+.empty {
+  grid-column: 1 / -1;
+  background: var(--panel);
+  border: 1px dashed var(--line);
+  padding: 28px 18px;
+  text-align: center;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.empty b { color: var(--text); display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 28px; letter-spacing: .04em; margin-bottom: 8px; }
 footer { margin-top: 22px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
 @media (max-width: 920px) {
   .grid, .games, .stats { grid-template-columns: 1fr; }
@@ -98,94 +107,66 @@ footer { margin-top: 22px; color: var(--muted); font-family: 'IBM Plex Mono', mo
       <h1>PICK'EM <span>HQ</span></h1>
     </div>
     <div class="meta">
-      WEEK 1 LOCKED
+      WEEK 2 — AWAITING LOCK
       <div class="clock" id="clock">--</div>
-      <div id="until">next kick loading…</div>
+      <div id="until">lock-day Wed 9/16 8:00am PT</div>
     </div>
   </header>
 
-  <div class="banner"><span class="dot"></span> DESKS LIVE — 8:00am PT sweep · 1:15pm PT injury report · Sunday 7:30am PT inactives</div>
+  <div class="banner"><span class="dot"></span> SCOUT MODE — Week 1 card retired after MNF. Lock bot fires Wed 9/16 8:00am PT. Desks: 8:00am sweep · 1:15pm IR · Sun 7:30am inactives</div>
 
   <div class="stats">
-    <div class="stat"><b>16</b><span>games on the card</span></div>
-    <div class="stat"><b>41</b><span>MNF tiebreaker</span></div>
-    <div class="stat"><b>2</b><span>hard flip tripwires</span></div>
-    <div class="stat"><b id="record">0-0</b><span>week record</span></div>
+    <div class="stat"><b>0</b><span>games locked</span></div>
+    <div class="stat"><b>—</b><span>tiebreaker</span></div>
+    <div class="stat"><b>0</b><span>hard flip tripwires</span></div>
+    <div class="stat"><b id="record">W1 done</b><span>awaiting W2 card</span></div>
   </div>
 
   <div class="grid">
     <div>
       <div class="section-title">THE CARD</div>
-      <div class="games" id="games"></div>
+      <div class="games">
+        <div class="empty">
+          <b>NO CARD LOCKED</b>
+          Week 2 first game is already on the clock: Lions at Bills, Thu Sep 17, 5:15pm PT, Prime Video.<br />
+          Drop the app screenshot after Wednesday's lock-day brief and this board gets the winners.
+        </div>
+      </div>
     </div>
     <div class="side">
       <div class="panel">
         <div class="section-title">TRIPWIRES</div>
         <ul class="trip">
-          <li><code>FLIP</code> Jeanty OUT/Doubtful → Dolphins over Raiders</li>
-          <li><code>FLIP</code> Mahomes OUT → Broncos over Chiefs</li>
-          <li><code>FLIP</code> Chase + Higgins both OUT → Bucs over Bengals</li>
-          <li><code>HOLD+</code> Hall OUT → keep Titans</li>
-          <li><code>WATCH</code> Penix or Jacobs unexpectedly active</li>
+          <li><code>HOLD</code> No Week 2 flips until the card locks Wednesday</li>
+          <li><code>SCOUT</code> Starting-QB scratches league-wide still get reported</li>
+          <li><code>SCOUT</code> Star RB / WR1 / LT ruled OUT on any contender</li>
           <li><code>WATCH</code> 20+ mph wind / slop at an outdoor site</li>
         </ul>
       </div>
       <div class="panel">
-        <div class="section-title">WATCH LIST</div>
+        <div class="section-title">WEEK 2 SCOUT</div>
         <div class="watch">
-          <div class="wrow"><span>Ashton Jeanty</span><span class="pill warn">Q · ankle</span></div>
-          <div class="wrow"><span>Patrick Mahomes</span><span class="pill warn">rusty · expected</span></div>
-          <div class="wrow"><span>Breece Hall</span><span class="pill warn">groin</span></div>
-          <div class="wrow"><span>Chase / Higgins</span><span class="pill warn">knee / heel</span></div>
-          <div class="wrow"><span>Josh Jacobs</span><span class="pill hot">CEL / OUT</span></div>
-          <div class="wrow"><span>Michael Penix</span><span class="pill hot">OUT</span></div>
-          <div class="wrow"><span>Tyler Smith</span><span class="pill hot">OUT 4-6</span></div>
-          <div class="wrow"><span>Chuba Hubbard</span><span class="pill warn">hamstring</span></div>
+          <div class="wrow"><span>Thu 9/17 5:15pm PT</span><span class="pill warn">DET @ BUF</span></div>
+          <div class="wrow"><span>Lock-day bot</span><span class="pill ok">Wed 8:00am PT</span></div>
+          <div class="wrow"><span>Inactives desk</span><span class="pill ok">Sun 7:30am PT</span></div>
+          <div class="wrow"><span>Week 1 card</span><span class="pill">retired</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <footer>War room source: github.com/mcuevas27/nfl-war-room — tell Grok when next week locks and the desks + this board get patched together.</footer>
+  <footer>War room source: github.com/mcuevas27/nfl-war-room — patched 2026-09-14 evening PT off Week 1. After Wednesday lock, update AM/PM/Sunday prompts + this board together.</footer>
 </div>
 <script>
-const games = [
-  { when: 'Wed 5:20pm PT', kick: '2026-09-09T17:20:00-07:00', match: 'NE @ SEA', pick: 'SEAHAWKS', conf: 'high', note: 'home + travel' },
-  { when: 'Thu 5:35pm PT', kick: '2026-09-10T17:35:00-07:00', match: 'SF vs LAR · Melbourne', pick: 'RAMS', conf: 'med', note: 'age-clock tax' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'CHI @ CAR', pick: 'BEARS', conf: 'med', note: 'Hubbard Q' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'CLE @ JAX', pick: 'JAGUARS', conf: 'high', note: 'cleanest click' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'NO @ DET', pick: 'LIONS', conf: 'high', note: 'Kamara out' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'ATL @ PIT', pick: 'STEELERS', conf: 'med', note: 'Penix out / Tua' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'NYJ @ TEN', pick: 'TITANS', conf: 'low', note: 'Hall groin' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'TB @ CIN', pick: 'BENGALS', conf: 'med', note: 'Chase/Higgins' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'BAL @ IND', pick: 'RAVENS', conf: 'med', note: 'Lamar' },
-  { when: 'Sun 10:00am PT', kick: '2026-09-13T10:00:00-07:00', match: 'BUF @ HOU', pick: 'BILLS', conf: 'low', note: 'toss-up' },
-  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'GB @ MIN', pick: 'VIKINGS', conf: 'med', note: 'Jacobs out' },
-  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'ARI @ LAC', pick: 'CHARGERS', conf: 'high', note: 'Herbert home' },
-  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'MIA @ LV', pick: 'RAIDERS', conf: 'med', note: 'Jeanty Q' },
-  { when: 'Sun 1:25pm PT', kick: '2026-09-13T13:25:00-07:00', match: 'WAS @ PHI', pick: 'EAGLES', conf: 'high', note: 'home roster' },
-  { when: 'Sun 5:20pm PT', kick: '2026-09-13T17:20:00-07:00', match: 'DAL @ NYG', pick: 'COWBOYS', conf: 'med', note: 'Smith out' },
-  { when: 'Mon 5:15pm PT', kick: '2026-09-14T17:15:00-07:00', match: 'DEN @ KC', pick: 'CHIEFS', conf: 'med', note: 'TB 41' }
-];
-const root = document.getElementById('games');
-games.forEach(g => {
-  const el = document.createElement('article');
-  el.className = 'card ' + (g.conf === 'high' ? 'high' : g.conf === 'low' ? 'low' : '');
-  el.innerHTML = `<div class="row"><span>${g.when}</span><span class="pill ${g.conf==='high'?'ok':g.conf==='low'?'warn':''}">${g.conf}</span></div>
-    <div class="vs">${g.match}</div>
-    <div class="pick">${g.pick}</div>
-    <div class="pills"><span class="pill">${g.note}</span></div>`;
-  root.appendChild(el);
-});
 function tick() {
   const now = new Date();
   document.getElementById('clock').textContent = now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit' }) + ' PT';
-  const next = games.map(g => new Date(g.kick)).filter(d => d > now).sort((a,b)=>a-b)[0];
+  const lock = new Date('2026-09-16T08:00:00-07:00');
   const box = document.getElementById('until');
-  if (!next) { box.textContent = 'week 1 complete — lock next card'; return; }
-  const ms = next - now;
+  if (now >= lock) { box.textContent = 'lock window open — run the Wednesday brief'; return; }
+  const ms = lock - now;
   const h = Math.floor(ms/3600000), m = Math.floor(ms%3600000/60000);
-  box.textContent = 'next kick in ' + h + 'h ' + m + 'm';
+  box.textContent = 'lock-day in ' + h + 'h ' + m + 'm';
 }
 tick(); setInterval(tick, 30000);
 </script>
